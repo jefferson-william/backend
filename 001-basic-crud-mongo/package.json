@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-nestjs",
+  "name": "001-basic-crud-mongo",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -27,8 +27,12 @@
   },
   "dependencies": {
     "@nestjs/common": "8.0.0",
+    "@nestjs/config": "2.0.0",
     "@nestjs/core": "8.0.0",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/mongoose": "9.0.3",
     "@nestjs/platform-express": "8.0.0",
+    "mongoose": "6.2.9",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "7.2.0"
