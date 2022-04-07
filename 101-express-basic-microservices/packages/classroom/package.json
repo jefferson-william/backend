@@ -1,0 +1,20 @@
+{
+  "name": "@app/classroom",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "dist/infra/messaging/index.js",
+  "scripts": {
+    "dev": "tsnd --inspect=localhost:9200 --respawn --transpile-only src/infra/messaging/index.ts",
+    "start": "node dist/infra/messaging/index.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma": "prisma"
+  },
+  "dependencies": {
+    "@prisma/client": "3.12.0"
+  },
+  "devDependencies": {
+    "prisma": "3.12.0"
+  }
+}

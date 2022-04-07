@@ -1,0 +1,51 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.5.0",
+    "yarn": "1.x"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail 'yarn classroom dev' 'yarn purchases dev' -n classroom,purchases -c magenta,green",
+    "build": "concurrently --kill-others-on-fail 'yarn classroom build' 'yarn purchases build' -n classroom,purchases -c magenta,green",
+    "start": "concurrently --kill-others-on-fail 'yarn classroom start' 'yarn purchases start' -n classroom,purchases -c magenta,green",
+    "test": "CI=true concurrently --kill-others-on-fail 'yarn classroom test --runInBand' 'yarn purchases test --runInBand' -n classroom,purchases -c magenta,green",
+    "classroom": "yarn workspace @app/classroom",
+    "purchases": "yarn workspace @app/purchases",
+    "db:migrate:dev": "yarn classroom db:migrate:dev ; yarn purchases db:migrate:dev",
+    "prisma:generate": "yarn classroom prisma generate ; yarn purchases prisma generate",
+    "prisma:studio": "yarn workspaces foreach -pt run prisma studio"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/**/*"
+    ],
+    "nohoist": [
+      "**/.prisma/**",
+      "**/.prisma",
+      "**/@prisma/**",
+      "**/@prisma",
+      "**/prisma/**",
+      "**/prisma"
+    ]
+  },
+  "dependencies": {
+    "cors": "2.8.5",
+    "custom-env": "2.0.1",
+    "dotenv": "16.0.0",
+    "express": "4.17.3",
+    "kafkajs": "1.16.0"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.12",
+    "@types/express": "4.17.13",
+    "@types/node": "17.0.23",
+    "concurrently": "6.2.2",
+    "prettier": "2.6.2",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.6.3"
+  }
+}

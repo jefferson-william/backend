@@ -1,0 +1,20 @@
+{
+  "name": "@app/purchases",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "dist/infra/http/index.js",
+  "scripts": {
+    "dev": "tsnd --inspect=localhost:9201 --respawn --transpile-only src/infra/http/index.ts",
+    "start": "node dist/infra/http/index.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma": "prisma"
+  },
+  "dependencies": {
+    "@prisma/client": "3.12.0"
+  },
+  "devDependencies": {
+    "prisma": "3.12.0"
+  }
+}
