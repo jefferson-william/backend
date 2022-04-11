@@ -1,6 +1,6 @@
 import { Product } from '../../domain/product'
 
 export interface ProductsRepository {
-  create(title: string): Promise<Product | null>
+  create(product: Product): Promise<Product | null>
   findById(id: string): Promise<Product | null>
 }

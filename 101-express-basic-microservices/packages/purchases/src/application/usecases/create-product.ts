@@ -1,4 +1,4 @@
-import { Product } from '@prisma/client'
+import { Product } from '../../domain/product'
 import { MessagingAdapter } from '../adapters/messaging-adapter'
 import { ProductsRepository } from '../repositories/products-repository'
 
@@ -10,7 +10,9 @@ export class CreateProduct {
   constructor(private productsRepository: ProductsRepository, private messagingAdapter: MessagingAdapter) {}
 
   async execute({ title }: CreateProductRequest): Promise<Product> {
-    const product = await this.productsRepository.create(title)
+    const data = new Product({ title })
+
+    const product = await this.productsRepository.create(data)
 
     if (!product) {
       throw new Error('Product not created')

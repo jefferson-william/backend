@@ -1,8 +1,8 @@
+const path = require('path')
 const customEnv = require('custom-env')
 
 if (process.env.NODE_ENV === 'development') {
-  customEnv.env(process.env.ENV_NAME)
-  customEnv.env(process.env.ENV_NAME, '../../../../')
+  customEnv.env(process.env.APP_ENV, path.resolve(`${__dirname}/../../../../../`))
 }
 
 import { EnrollStudentToCourse } from '../../application/usecases/enroll-student-to-course'

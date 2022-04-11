@@ -63,6 +63,8 @@ docker kill $(docker ps -q)
 # Verificar se estão rodando
 docker-compose logs zookeeper | grep -i binding
 docker-compose logs kafka | grep -i started
+# Para quando Kafka não ter tido tempo de sincronizar
+docker-compose restart kafka
 # Criar um tópico
 docker-compose exec kafka kafka-topics --create --topic purchases --partitions 1 --replication-factor 1 --if-not-exists --zookeeper localhost:2181
 docker-compose exec kafka kafka-topics --describe --topic purchases --zookeeper localhost:2181

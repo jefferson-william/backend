@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "name": "classroom - Attach",
+      "type": "node",
+      "port": 9200,
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/packages/classroom"
+    },
+    {
+      "name": "purchases - Attach",
+      "type": "node",
+      "port": 9201,
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/packages/purchases"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Compound",
+      "configurations": ["classroom - Attach", "purchases - Attach"]
+    }
+  ]
+}
