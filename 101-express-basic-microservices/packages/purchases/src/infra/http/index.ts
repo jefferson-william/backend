@@ -1,5 +1,9 @@
-import path from 'path'
-import dotenv from 'dotenv'
+const path = require('path')
+const customEnv = require('custom-env')
+
+if (process.env.NODE_ENV === 'development') {
+  customEnv.env(process.env.APP_ENV, path.resolve(`${__dirname}/../../../../../`))
+}
 
 import express from 'express'
 import cors from 'cors'
@@ -10,8 +14,6 @@ import { PrismaPurchasesRepository } from '../database/prisma/repositories/prism
 import { PurchaseProduct } from '../../application/usecases/purchase-product'
 import { KafkaMessagingAdapter } from '../messaging/kafka/adapters/kafka-messaging-adapter'
 import { CreateProduct } from '../../application/usecases/create-product'
-
-dotenv.config({ path: path.resolve(`${__dirname}/../../../.env`) })
 
 const app = express()
 
@@ -75,6 +77,6 @@ app.post('/products', async (request, response) => {
   }
 })
 
-app.listen(process.env.PORT || 3333, () => {
+app.listen(process.env.PORT, () => {
   console.log('[Purchases] Server running')
 })

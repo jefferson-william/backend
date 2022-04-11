@@ -9,7 +9,7 @@
     "start": "node dist/infra/http/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma": "prisma"
+    "prisma": "dotenv -e ../../.env.db prisma"
   },
   "dependencies": {
     "@prisma/client": "3.12.0"

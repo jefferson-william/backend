@@ -4,8 +4,13 @@ import { Product } from '../../../../domain/product'
 import { prisma } from '../prisma'
 
 export class PrismaProductsRepository implements ProductsRepository {
-  async create(title: string): Promise<Product | null> {
-    const product = await prisma.product.create({ data: { id: crypto.randomUUID(), title } })
+  async create(data: Product): Promise<Product | null> {
+    const product = await prisma.product.create({
+      data: {
+        id: data.id,
+        title: data.title,
+      },
+    })
 
     return new Product(
       {
