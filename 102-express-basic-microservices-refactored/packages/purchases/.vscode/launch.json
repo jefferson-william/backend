@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "name": "purchases: Launch",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/purchases",
+      "restart": true,
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev"],
+      "port": 9201,
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Compound: Launch",
+      "configurations": ["purchases: Launch"]
+    }
+  ]
+}

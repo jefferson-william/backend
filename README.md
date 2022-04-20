@@ -32,9 +32,9 @@ Usado por baixo do Nest.JS, este é o mais conhecido _framework_ para NodeJS.
 
 ```sh
 export DB_URL=postgresql://postgres:docker@localhost:5432/db
-yarn db:migrate:dev
 # others
-npx prisma migrate dev --schema <path>
+npx prisma migrate dev
+npx prisma migrate generate
 npx prisma studio
 ```
 

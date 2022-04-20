@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "name": "classroom: Launch",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/classroom",
+      "restart": true,
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev"],
+      "port": 9200,
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Compound: Launch",
+      "configurations": ["classroom: Launch"]
+    }
+  ]
+}
