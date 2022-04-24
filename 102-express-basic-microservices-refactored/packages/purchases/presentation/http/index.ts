@@ -17,46 +17,6 @@ const appAdapter = appAdapted.execute(app)
 
 routes({ appAdapter, controllerAdapter })
 
-app.get('/', (req, res) => {
-  return res.json({ ok: true })
-})
-
-// app.post('/purchases', async (request, response) => {
-//   const { productId, name, email } = request.body
-
-//   try {
-//     await purchaseFactory.getUseCase().purchaseProductUseCase.execute({
-//       name,
-//       email,
-//       productId,
-//     })
-
-//     return response.status(201).send()
-//   } catch (err) {
-//     console.error(err)
-
-//     return response.status(400).json({
-//       error: 'Error while creating a new purchase',
-//     })
-//   }
-// })
-
-// app.post('/products', async (request, response) => {
-//   const { title } = request.body
-
-//   try {
-//     const product = await productFactory.getUseCase().createProductUseCase.execute({ title })
-
-//     return response.status(201).send(product)
-//   } catch (err) {
-//     console.error(err)
-
-//     return response.status(400).json({
-//       error: 'Error while creating a new product',
-//     })
-//   }
-// })
-
 app.listen(process.env.PURCHASES_PORT, () => {
   console.log('[Purchases] Server running')
 })
