@@ -1,8 +1,8 @@
 import { prisma } from '../../../prisma'
-import { Product } from '../model/product'
+import { ProductModel } from '../model/product'
 
 export class ProductRepository {
-  async create(data: Product): Promise<Product | null> {
+  async create(data: ProductModel): Promise<ProductModel | null> {
     const product = await prisma.product.create({
       data: {
         id: data.id,
@@ -10,15 +10,10 @@ export class ProductRepository {
       },
     })
 
-    return new Product(
-      {
-        title: product.title,
-      },
-      product.id,
-    )
+    return new ProductModel(product, product.id)
   }
 
-  async findById(id: string): Promise<Product | null> {
+  async findById(id: string): Promise<ProductModel | null> {
     const product = await prisma.product.findUnique({
       where: { id: id },
     })
@@ -27,11 +22,6 @@ export class ProductRepository {
       return null
     }
 
-    return new Product(
-      {
-        title: product.title,
-      },
-      product.id,
-    )
+    return new ProductModel(product, product.id)
   }
 }

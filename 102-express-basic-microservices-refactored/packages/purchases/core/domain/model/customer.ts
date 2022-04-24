@@ -1,7 +1,8 @@
 import crypto from 'node:crypto'
+import { Model } from '../../data/model'
 import { CustomerProps } from '../../data/props/customer'
 
-export class Customer implements CustomerProps {
+export class CustomerModel implements CustomerProps, Model<CustomerProps> {
   private _id: string
   private props: CustomerProps
 
@@ -20,5 +21,12 @@ export class Customer implements CustomerProps {
   constructor(props: CustomerProps, id?: string) {
     this._id = id ?? crypto.randomUUID()
     this.props = props
+  }
+
+  toJSON(): CustomerProps {
+    return {
+      id: this.id,
+      ...this.props,
+    }
   }
 }

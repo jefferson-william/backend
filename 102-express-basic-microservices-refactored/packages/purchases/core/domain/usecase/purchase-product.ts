@@ -1,5 +1,5 @@
-import { Customer } from '../model/customer'
-import { Purchase } from '../model/purchase'
+import { CustomerModel } from '../model/customer'
+import { PurchaseModel } from '../model/purchase'
 import { CustomerRepository } from '../repository/customer'
 import { ProductRepository } from '../repository/product'
 import { PurchaseRepository } from '../repository/purchase'
@@ -23,14 +23,14 @@ export class PurchaseProductUseCase implements UseCaseInterface {
       throw new Error('Products does not exists')
     }
 
-    const customerData = new Customer({
+    const customerData = new CustomerModel({
       name,
       email,
     })
 
     const customer = await this.customerRepository.create(customerData)
 
-    const purchaseData = new Purchase({
+    const purchaseData = new PurchaseModel({
       customerId: customer.id,
       productId,
       createdAt: new Date(),
@@ -39,9 +39,9 @@ export class PurchaseProductUseCase implements UseCaseInterface {
     const purchase = await this.purchaseRepository.create(purchaseData)
 
     return {
-      product,
-      customer,
-      purchase,
+      product: product.toJSON(),
+      customer: customer.toJSON(),
+      purchase: purchase.toJSON(),
     }
   }
 }

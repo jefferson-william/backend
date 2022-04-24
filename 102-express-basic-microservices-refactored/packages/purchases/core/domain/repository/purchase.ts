@@ -1,9 +1,9 @@
 import { prisma } from '../../../prisma'
-import { Purchase } from '../model/purchase'
+import { PurchaseModel } from '../model/purchase'
 
 export class PurchaseRepository {
-  async create(purchase: Purchase) {
-    return await prisma.purchase.create({
+  async create(purchase: PurchaseModel) {
+    const data = await prisma.purchase.create({
       data: {
         id: purchase.id,
         customerId: purchase.customerId,
@@ -11,5 +11,7 @@ export class PurchaseRepository {
         createdAt: purchase.createdAt,
       },
     })
+
+    return new PurchaseModel(data, data.id)
   }
 }
