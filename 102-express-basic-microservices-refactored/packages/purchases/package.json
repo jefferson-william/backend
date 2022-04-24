@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "private": true,
-  "main": "dist/infra/http/index.js",
+  "main": "dist/presentation/index.js",
   "scripts": {
-    "dev": "tsnd --inspect=localhost:9201 --respawn --transpile-only src/infra/http/index.ts",
-    "start": "node dist/infra/http/index.js",
+    "dev": "tsnd --inspect=localhost:9201 --respawn --transpile-only presentation/index.ts",
+    "start": "node dist/presentation/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma": "dotenv -e ../../.env.db prisma"
