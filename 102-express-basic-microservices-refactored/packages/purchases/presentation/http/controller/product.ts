@@ -6,12 +6,10 @@ export class CreateProductController implements ControllerInterface {
   constructor(private productFactory: ProductFactory) {}
 
   execute = async ({ request, response }: ControllerRoutePayload<ProductInputRequest>): Promise<void> => {
-    const { title } = request.body
-
     try {
-      await this.productFactory.getUseCase().createProductUseCase.execute({ title })
+      const product = await this.productFactory.getUseCase().createProductUseCase.execute(request.body)
 
-      return response.status(201).send()
+      return response.status(201).send(product)
     } catch (err) {
       console.error(err)
 

@@ -3,7 +3,7 @@ import { Purchase } from '../model/purchase'
 
 export class PurchaseRepository {
   async create(purchase: Purchase) {
-    await prisma.purchase.create({
+    return await prisma.purchase.create({
       data: {
         id: purchase.id,
         customerId: purchase.customerId,

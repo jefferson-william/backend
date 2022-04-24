@@ -12,7 +12,8 @@ app.use(cors())
 
 const controllerAdapter = new ControllerAdapter(new ExpressControllerAdapter())
 const frameworkAdapter = new ExpressAppAdapter()
-const appAdapter = new AppAdapter(frameworkAdapter, controllerAdapter).execute(app)
+const appAdapted = new AppAdapter(frameworkAdapter, controllerAdapter)
+const appAdapter = appAdapted.execute(app)
 
 routes({ appAdapter, controllerAdapter })
 

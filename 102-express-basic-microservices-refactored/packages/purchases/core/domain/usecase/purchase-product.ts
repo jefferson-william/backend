@@ -3,19 +3,18 @@ import { Purchase } from '../model/purchase'
 import { CustomerRepository } from '../repository/customer'
 import { ProductRepository } from '../repository/product'
 import { PurchaseRepository } from '../repository/purchase'
-import { MessagingAdapter } from '../../data/adapter/messaging-adapter'
 import { PurchaseInputRequest } from '../../data/request/purchase'
 import { UseCaseInterface } from '../../data/usecase'
+import { CreatePurchaseOutput } from '../../data/message'
 
 export class PurchaseProductUseCase implements UseCaseInterface {
   constructor(
     private customerRepository: CustomerRepository,
     private productRepository: ProductRepository,
     private purchaseRepository: PurchaseRepository,
-    private messagingAdapter: MessagingAdapter,
   ) {}
 
-  async execute({ name, email, productId }: PurchaseInputRequest): Promise<void> {
+  async execute({ name, email, productId }: PurchaseInputRequest): Promise<CreatePurchaseOutput> {
     const product = await this.productRepository.findById(productId)
 
     const productExists = !!product
@@ -24,34 +23,25 @@ export class PurchaseProductUseCase implements UseCaseInterface {
       throw new Error('Products does not exists')
     }
 
-    const customer = new Customer({
+    const customerData = new Customer({
       name,
       email,
     })
 
-    await this.customerRepository.create(customer)
+    const customer = await this.customerRepository.create(customerData)
 
-    const purchase = new Purchase({
+    const purchaseData = new Purchase({
       customerId: customer.id,
       productId,
       createdAt: new Date(),
     })
 
-    await this.purchaseRepository.create(purchase)
+    const purchase = await this.purchaseRepository.create(purchaseData)
 
-    /**
-     * This SHOULD NOT be here
-     */
-    await this.messagingAdapter.sendMessage('purchases.new-purchase', {
-      product: {
-        id: product.id,
-        title: product.title,
-      },
-      customer: {
-        name: customer.name,
-        email: customer.email,
-      },
-      purchaseId: purchase.id,
-    })
+    return {
+      product,
+      customer,
+      purchase,
+    }
   }
 }

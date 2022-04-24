@@ -1,7 +1,7 @@
 import crypto from 'node:crypto'
 import { PurchaseProps } from '../../data/props/purchase'
 
-export class Purchase {
+export class Purchase implements PurchaseProps {
   private _id: string
   private props: PurchaseProps
 

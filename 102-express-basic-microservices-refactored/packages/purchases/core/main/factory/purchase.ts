@@ -15,14 +15,13 @@ export class PurchaseFactory {
         customerFactory.getRepository(),
         productFactory.getRepository(),
         purchaseFactory.getRepository(),
-        kafkaMessagingAdapter,
       ),
     }
   }
 
   getController() {
     return {
-      create: new PurchaseCreateController(this).execute,
+      create: new PurchaseCreateController(this, kafkaMessagingAdapter).execute,
     }
   }
 }

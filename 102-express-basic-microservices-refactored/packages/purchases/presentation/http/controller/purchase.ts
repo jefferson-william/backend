@@ -1,21 +1,18 @@
+import { MessagingAdapter } from '../../../core/data/adapter/messaging-adapter'
 import { ControllerInterface, ControllerRoutePayload } from '../../../core/data/controller'
 import { PurchaseInputRequest } from '../../../core/data/request/purchase'
 import { PurchaseFactory } from '../../../core/main/factory/purchase'
 
 export class PurchaseCreateController implements ControllerInterface {
-  constructor(private purchaseFactory: PurchaseFactory) {}
+  constructor(private purchaseFactory: PurchaseFactory, private messagingAdapter: MessagingAdapter) {}
 
   execute = async ({ request, response }: ControllerRoutePayload<PurchaseInputRequest>) => {
-    const { productId, name, email } = request.body
-
     try {
-      await this.purchaseFactory.getUseCase().purchaseProductUseCase.execute({
-        name,
-        email,
-        productId,
-      })
+      const data = await this.purchaseFactory.getUseCase().purchaseProductUseCase.execute(request.body)
 
-      return response.status(201).send()
+      await this.messagingAdapter.sendMessage('purchases.new-purchase', data)
+
+      return response.status(201).send(data)
     } catch (err) {
       console.error(err)
 
