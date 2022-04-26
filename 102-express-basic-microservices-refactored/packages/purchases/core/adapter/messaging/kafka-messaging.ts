@@ -1,4 +1,4 @@
-import { producer } from '../../../presentation/messaging/kafka/producer'
+import { producer } from '../../../presentation/messaging/kafka'
 import { MessagingAdapter } from '../../data/adapter/messaging-adapter'
 
 export class KafkaMessagingAdapter implements MessagingAdapter {

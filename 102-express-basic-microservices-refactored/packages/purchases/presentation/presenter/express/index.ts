@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-import { ControllerAdapter } from '../../../../core/adapter'
-import { ExpressControllerAdapter } from '../../../../core/adapter/controller/express-controller-adapter'
-import { routes } from '../../routes/purchase'
-import { AppAdapter, ExpressAppAdapter } from '../../../../core/adapter/app'
+import { ControllerAdapter } from '../../../core/adapter'
+import { ExpressControllerAdapter } from '../../../core/adapter/controller/express-controller-adapter'
+import { routes } from '../../http/routes'
+import { AppAdapter, ExpressAppAdapter } from '../../../core/adapter/app'
 
 const app = express()
 
