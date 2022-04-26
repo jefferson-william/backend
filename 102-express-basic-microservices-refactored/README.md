@@ -15,6 +15,7 @@ Comandos úteis usados durante desenvolvimento.
 make env
 make init
 make db
+make up
 make dev
 ```
 
