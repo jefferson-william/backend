@@ -38,9 +38,11 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
       - app-net
+    depends_on:
+      - postgres
 
   kafka:
-    image: 'bitnami/kafka:2'
+    image: 'bitnami/kafka:3'
     ports:
       - '9092:9092'
     volumes:
@@ -51,6 +53,7 @@ services:
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
+      - postgres
       - zookeeper
     networks:
       - app-net

@@ -9,12 +9,12 @@
     "start": "node dist/presentation/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma": "dotenv -e ../../.env.db prisma"
+    "prisma": "prisma"
   },
   "dependencies": {
-    "@prisma/client": "3.12.0"
+    "@prisma/client": "3.13.0"
   },
   "devDependencies": {
-    "prisma": "3.12.0"
+    "prisma": "3.13.0"
   }
 }

@@ -6,7 +6,7 @@ export APP_ENV=dev
 bootstrap: env init db dev
 
 env:
-	cp .env.db.example .env.db
+	cp .env.local.example .env.local
 	cp .env.dev.example .env.dev
 
 up:
@@ -15,9 +15,11 @@ up:
 restart:
 	docker-compose restart kafka
 
-init:
-	yarn install
+pull:
 	docker-compose pull
+
+init: pull
+	yarn install
 
 db:
 	yarn classroom prisma migrate dev # see packages/purchases/scripts/init.sh for more commands
@@ -26,14 +28,14 @@ db:
 	yarn purchases prisma generate
 
 dev:
-	yarn concurrently --kill-others-on-fail \
+	npx dotenv -e .env.local -- yarn concurrently --kill-others-on-fail \
 		'yarn classroom dev' \
 		'yarn purchases dev' \
 		-n classroom,purchases \
 		-c magenta,green
 
 studio:
-	yarn concurrently --kill-others-on-fail \
+	npx dotenv -e .env.local -- yarn concurrently --kill-others-on-fail \
 		'yarn classroom prisma studio' \
 		'yarn purchases prisma studio' \
 		-n classroom,purchases \

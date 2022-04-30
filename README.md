@@ -43,6 +43,73 @@ npx prisma studio
 - https://www.prisma.io/docs
 - https://github.com/alitnk/nestjs-prisma-monorepo
 
+## Kafka
+
+Trabalha com tópicos onde nem sempre a primeira que entrar será a primeira a sair tal como HabbitMQ porque
+ele utiliza partições.
+
+Num Consumer pode ter uma partição mais rápida que outra e com isso o _offset_ da fila
+de um ou outro pode ser diferente.
+
+As mensagens são armazenadas e mesmo que ele caia, consegue voltar a processar todas mensagens novamente.
+
+Uma mensagem no Kafka não é removida. Ela é armazenada e marcada como processada.
+
+Você pode configurar o período de retenção dessas mensagens processadas por mais que tenha um período padrão.
+
+Principais características:
+
+- Segurança;
+- Resiliência;
+- _Features_ essênciais;
+- _Stream_ de dados;
+
+### Comandos
+
+```sh
+docker exec -it 102-express-basic-microservices-refactored_kafka_1 bash
+kafka-topics.sh --list --bootstrap-server kafka:9092
+kafka-topics.sh --create --bootstrap-server kafka:9092 --partitions 3 --replication-factor 1 --topic test
+kafka-topics.sh --describe --bootstrap-server kafka:9092 --topic test
+kafka-console-producer.sh --bootstrap-server kafka:9092 --topic purchases.new-product
+kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic purchases.new-product
+kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic purchases.new-product --from-beginning
+kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic purchases.new-product --group purchases
+kafka-consumer-groups.sh --bootstrap-server kafka:9092 --group purchases --describe
+```
+
+### Kafka Cluster
+
+![image](https://user-images.githubusercontent.com/2935122/166109459-77191858-e6b8-416c-8e0b-009915b993fe.png)
+
+Cada _Broker_ é um servidor e um conjunto de _brokers_ formam um _Cluster_.
+
+Os _brokers_ são responsáveis por armazenar os dados de uma partição.
+
+Ou seja: Cada partição de um _Topic_ está distribuído em diferentes _brokers_.
+
+Com isso, entendemos que o Kafka é distribuído e as mensagens podem ficar em partições e servers diferentes.
+
+### Replication Factor
+
+![image](https://user-images.githubusercontent.com/2935122/166109774-a7488b13-d88f-495b-9901-c2c73ca8a8cf.png)
+
+O Kafka trabalha com réplicas para que caso uma morra, você não perca o processamento de nenhum mensagem.
+
+Com isso, você pode ter vários _Brokers_ e _Topics_ espalhados para garantir a entrega delas.
+
+### Consumer group
+
+![image](https://user-images.githubusercontent.com/2935122/166110018-71ec9a4d-4d7a-4545-953a-67290c5e55be.png)
+
+Quando uma mensagem é lida por um _Consumer_, ela não será lida por outro.
+
+_Group_ serve para ter um grupo de _Consumers_ por sistema onde você poderá ter adicionar mais _Consumers_.
+
+## HabbitMQ
+
+Diferentemente do _Kafka_, o _HabbitMQ_ não tem partições, apenas filas. Então ele lê tudo e após processar, as mensagens somem.
+
 ## MongoDB
 
 Banco de dados não relacional mais conhecido baseado em documentos.
